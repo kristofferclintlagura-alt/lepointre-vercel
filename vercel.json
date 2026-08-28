@@ -1,6 +1,5 @@
 {
   "buildCommand": "python tools/build.py",
   "outputDirectory": "public",
-  "cleanUrls": true,
   "github": { "silent": true }
 }

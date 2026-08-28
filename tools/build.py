@@ -112,6 +112,10 @@ img{max-width:100%;display:block}
 .tile .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.05);
   transition:transform .4s}
 .tile:hover .ph img{transform:scale(1.06);filter:none}
+.tile .ph-empty{display:flex;align-items:center;justify-content:center;background:
+  repeating-linear-gradient(45deg,#1a1a1a,#1a1a1a 10px,#222 10px,#222 20px)}
+.tile .ph-empty span{font-family:var(--font-display);text-transform:uppercase;
+  letter-spacing:.06em;font-size:14px;color:var(--muted);text-align:center;padding:10px}
 .tile .cap{padding:11px 12px 13px}
 .tile .cap h3{margin:0;font-family:var(--font-display);text-transform:uppercase;
   letter-spacing:.04em;font-size:16px;line-height:1.1}
@@ -269,14 +273,19 @@ def build():
     rots = ["-1.2deg","1deg","-0.6deg","0.8deg","-1deg","1.3deg","-0.9deg","0.7deg"]
     for i, p in enumerate(featured):
         cov = post_cover(p)
-        tiles.append(f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph"><img loading="lazy" src="{cov}" alt="{p["title"]}"></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>')
+        if cov:
+            ph = f'<div class="ph"><img loading="lazy" src="{cov}" alt="{p["title"]}"></div>'
+        else:
+            ph = f'<div class="ph ph-empty"><span>{p["title"]}</span></div>'
+        tiles.append(f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html">{ph}<div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>')
     idx = (head("Accueil", site) + hero +
            '<div class="sec-label">Sélection — <b>8 œuvres / expositions</b></div>' +
            '<section class="tiles">' + "".join(tiles) + "</section>" +
            '<div class="sec-label">L’intégrale — <b>toutes les toiles</b></div>' +
-           '<section class="tiles">' + "".join(
-               f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph"><img loading="lazy" src="{post_cover(p)}" alt=""></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>'
-               for i, p in enumerate(posts)) + "</section>" + foot())
+           f'<section class="tiles">' + "".join(
+           (f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph"><img loading="lazy" src="{post_cover(p)}" alt=""></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>' if post_cover(p)
+            else f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph ph-empty"><span>{p["title"]}</span></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>')
+           for i, p in enumerate(posts)) + "</section>" + foot())
     open(os.path.join(PUBLIC, "index.html"), "w", encoding="utf-8").write(idx)
 
     # ---- galerie (every artwork grid + lightbox) ----
