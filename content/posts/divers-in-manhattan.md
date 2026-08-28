@@ -1,0 +1,105 @@
+---
+title: "OTHERS ONES IN MANHATTAN"
+date: 2015-06
+---
+
+
+                                <div class="Post-header">
+                                                                        <h1 class="Post-title">
+                                                                            OTHERS ONES IN MANHATTAN
+                                                                        </h1>
+                                                                        <p class="Post-meta PostMeta">
+                                                                                <span class="PostMeta-user">
+                                            <span class="fa fa-fw fa-user"></span>
+                                             
+                                        </span>
+                                                                                
+                                        <span class="PostMeta-comments">
+                                            <span class="fa fa-fw fa-comment"></span>
+                                                                                        <span id="comment-count-70475754">…</span>
+                                                                                    </span>
+                                    </p>
+
+                                    
+                                                                    </div>
+
+                                
+                                <div class="Post-content">
+                                    
+
+
+  <div class="ob-sections">
+      
+    
+     
+  <div
+    class="ob-section ob-section-html "
+      >
+
+<p style="text-align: center;"><span style="font-family:Arial,Helvetica,sans-serif;"><span class="yui3-widget yui3-inputwidget yui3-htmleditorwidget" id="yui_3_5_0_1_1435063511462_192028" style="width: 638px;"><span class="yui3-htmleditorwidget-content" id="yui_3_5_0_1_1435063511462_192030"><span class="yui3-widget yui3-inputwidget yui3-htmleditorwidget" style="width: 638px;"><span class="yui3-htmleditorwidget-content"><span style="color:#008000;"><span style="font-size: 20px;">De 1985 &agrave; 1991, Le Pointre a r&eacute;alis&eacute; plus de 300 toiles de grand format qu&#39;il a placard&eacute;es sur les murs de New York. Aujourd&#39;hui, ces oeuvres n&#39;existent plus qu&#39;au travers des images contenues dans ces pages.</span></span></span></span></span></span></span></p>
+
+<p style="text-align: center;">&nbsp;</p>
+
+<p id="yui_3_5_0_1_1435063511462_201589" style="text-align: center;"><span style="font-family:Arial,Helvetica,sans-serif;"><span class="yui3-widget yui3-inputwidget yui3-htmleditorwidget" id="yui_3_5_0_1_1435063511462_192028" style="width: 638px;"><span class="yui3-htmleditorwidget-content" id="yui_3_5_0_1_1435063511462_192030"><span class="yui3-widget yui3-inputwidget yui3-htmleditorwidget" style="width: 638px;"><span class="yui3-htmleditorwidget-content"><span style="color:#FF0000;"><span style="font-size: 20px;">From 1985 to 1991 Le Pointre painted more than 300 paintings of large size which he hanged up on Manhattan walls. Today those works stay alive only through these pictures.</span></span></span></span></span></span></span></p>
+    </div>
+
+
+                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_49a5f268_ob_803ad3_paintings-on-ny-walls046.jpg" class="ob-link-img"><img src="assets/img/full_49a5f268_ob_803ad3_paintings-on-ny-walls046.jpg" data-full="assets/img/full_49a5f268_ob_803ad3_paintings-on-ny-walls046.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_d424a7cf_ob_b61fb4_paintings-on-ny-walls367.jpg" class="ob-link-img"><img src="assets/img/full_d424a7cf_ob_b61fb4_paintings-on-ny-walls367.jpg" data-full="assets/img/full_d424a7cf_ob_b61fb4_paintings-on-ny-walls367.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_4f532d7a_ob_9789a3_paintings-on-ny-walls505.jpg" class="ob-link-img"><img src="assets/img/full_4f532d7a_ob_9789a3_paintings-on-ny-walls505.jpg" data-full="assets/img/full_4f532d7a_ob_9789a3_paintings-on-ny-walls505.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_034c70ba_ob_cedf7f_paintings-on-ny-walls157.jpg" class="ob-link-img"><img src="assets/img/full_034c70ba_ob_cedf7f_paintings-on-ny-walls157.jpg" data-full="assets/img/full_034c70ba_ob_cedf7f_paintings-on-ny-walls157.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_3120bec9_ob_f27919_paintings-on-ny-walls494.jpg" class="ob-link-img"><img src="assets/img/full_3120bec9_ob_f27919_paintings-on-ny-walls494.jpg" data-full="assets/img/full_3120bec9_ob_f27919_paintings-on-ny-walls494.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_3427df33_ob_7c89aa_paintings-on-ny-walls515.jpg" class="ob-link-img"><img src="assets/img/full_3427df33_ob_7c89aa_paintings-on-ny-walls515.jpg" data-full="assets/img/full_3427df33_ob_7c89aa_paintings-on-ny-walls515.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_6ab29675_ob_45c70a_paintings-on-ny-walls515a.jpg" class="ob-link-img"><img src="assets/img/full_6ab29675_ob_45c70a_paintings-on-ny-walls515a.jpg" data-full="assets/img/full_6ab29675_ob_45c70a_paintings-on-ny-walls515a.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_98a33f2d_ob_cbe84c_paintings-on-ny-walls291.jpg" class="ob-link-img"><img src="assets/img/full_98a33f2d_ob_cbe84c_paintings-on-ny-walls291.jpg" data-full="assets/img/full_98a33f2d_ob_cbe84c_paintings-on-ny-walls291.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_a30024df_ob_fa2f27_paintings-on-ny-walls293.jpg" class="ob-link-img"><img src="assets/img/full_a30024df_ob_fa2f27_paintings-on-ny-walls293.jpg" data-full="assets/img/full_a30024df_ob_fa2f27_paintings-on-ny-walls293.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_9c3672f8_ob_d3f0cb_paintings-on-ny-walls294.jpg" class="ob-link-img"><img src="assets/img/full_9c3672f8_ob_d3f0cb_paintings-on-ny-walls294.jpg" data-full="assets/img/full_9c3672f8_ob_d3f0cb_paintings-on-ny-walls294.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_993be680_ob_e4ddcc_paintings-on-ny-walls299.jpg" class="ob-link-img"><img src="assets/img/full_993be680_ob_e4ddcc_paintings-on-ny-walls299.jpg" data-full="assets/img/full_993be680_ob_e4ddcc_paintings-on-ny-walls299.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_3af97910_ob_b145f6_paintings-on-ny-walls300.jpg" class="ob-link-img"><img src="assets/img/full_3af97910_ob_b145f6_paintings-on-ny-walls300.jpg" data-full="assets/img/full_3af97910_ob_b145f6_paintings-on-ny-walls300.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_f3120704_ob_dc5e0a_paintings-on-ny-walls319b.jpg" class="ob-link-img"><img src="assets/img/full_f3120704_ob_dc5e0a_paintings-on-ny-walls319b.jpg" data-full="assets/img/full_f3120704_ob_dc5e0a_paintings-on-ny-walls319b.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_652876ba_ob_5d8c52_paintings-on-ny-walls319c.jpg" class="ob-link-img"><img src="assets/img/full_652876ba_ob_5d8c52_paintings-on-ny-walls319c.jpg" data-full="assets/img/full_652876ba_ob_5d8c52_paintings-on-ny-walls319c.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_fbaf14c8_ob_4522cc_paintings-on-ny-walls326.jpg" class="ob-link-img"><img src="assets/img/full_fbaf14c8_ob_4522cc_paintings-on-ny-walls326.jpg" data-full="assets/img/full_fbaf14c8_ob_4522cc_paintings-on-ny-walls326.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_d0ae43b9_ob_2fc964_paintings-on-ny-walls327.jpg" class="ob-link-img"><img src="assets/img/full_d0ae43b9_ob_2fc964_paintings-on-ny-walls327.jpg" data-full="assets/img/full_d0ae43b9_ob_2fc964_paintings-on-ny-walls327.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_bebc6ff8_ob_c8f349_paintings-on-ny-walls328.jpg" class="ob-link-img"><img src="assets/img/full_bebc6ff8_ob_c8f349_paintings-on-ny-walls328.jpg" data-full="assets/img/full_bebc6ff8_ob_c8f349_paintings-on-ny-walls328.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_54dcb8d4_ob_222196_paintings-on-ny-walls335.jpg" class="ob-link-img"><img src="assets/img/full_54dcb8d4_ob_222196_paintings-on-ny-walls335.jpg" data-full="assets/img/full_54dcb8d4_ob_222196_paintings-on-ny-walls335.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_3769fe70_ob_a752f2_paintings-on-ny-walls335a.jpg" class="ob-link-img"><img src="assets/img/full_3769fe70_ob_a752f2_paintings-on-ny-walls335a.jpg" data-full="assets/img/full_3769fe70_ob_a752f2_paintings-on-ny-walls335a.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_70619e45_ob_5c7741_paintings-on-ny-walls336.jpg" class="ob-link-img"><img src="assets/img/full_70619e45_ob_5c7741_paintings-on-ny-walls336.jpg" data-full="assets/img/full_70619e45_ob_5c7741_paintings-on-ny-walls336.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_ad90201b_ob_2ead54_paintings-on-ny-walls336b.jpg" class="ob-link-img"><img src="assets/img/full_ad90201b_ob_2ead54_paintings-on-ny-walls336b.jpg" data-full="assets/img/full_ad90201b_ob_2ead54_paintings-on-ny-walls336b.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_69dfcf7b_ob_bbd127_paintings-on-ny-walls337.jpg" class="ob-link-img"><img src="assets/img/full_69dfcf7b_ob_bbd127_paintings-on-ny-walls337.jpg" data-full="assets/img/full_69dfcf7b_ob_bbd127_paintings-on-ny-walls337.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_029f5c6c_ob_697f9e_paintings-on-ny-walls337a.jpg" class="ob-link-img"><img src="assets/img/full_029f5c6c_ob_697f9e_paintings-on-ny-walls337a.jpg" data-full="assets/img/full_029f5c6c_ob_697f9e_paintings-on-ny-walls337a.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_4f9edd58_ob_33c838_paintings-on-ny-walls354b.jpg" class="ob-link-img"><img src="assets/img/full_4f9edd58_ob_33c838_paintings-on-ny-walls354b.jpg" data-full="assets/img/full_4f9edd58_ob_33c838_paintings-on-ny-walls354b.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_6def8216_ob_45449f_paintings-on-ny-walls452.jpg" class="ob-link-img"><img src="assets/img/full_6def8216_ob_45449f_paintings-on-ny-walls452.jpg" data-full="assets/img/full_6def8216_ob_45449f_paintings-on-ny-walls452.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_1abea145_ob_f83054_paintings-on-ny-walls364.jpg" class="ob-link-img"><img src="assets/img/full_1abea145_ob_f83054_paintings-on-ny-walls364.jpg" data-full="assets/img/full_1abea145_ob_f83054_paintings-on-ny-walls364.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_0519e6b4_ob_b62f03_paintings-on-ny-walls370a.jpg" class="ob-link-img"><img src="assets/img/full_0519e6b4_ob_b62f03_paintings-on-ny-walls370a.jpg" data-full="assets/img/full_0519e6b4_ob_b62f03_paintings-on-ny-walls370a.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_a2034918_ob_55c358_paintings-on-ny-walls370b.jpg" class="ob-link-img"><img src="assets/img/full_a2034918_ob_55c358_paintings-on-ny-walls370b.jpg" data-full="assets/img/full_a2034918_ob_55c358_paintings-on-ny-walls370b.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_db5c23a2_ob_a88044_paintings-on-ny-walls377.jpg" class="ob-link-img"><img src="assets/img/full_db5c23a2_ob_a88044_paintings-on-ny-walls377.jpg" data-full="assets/img/full_db5c23a2_ob_a88044_paintings-on-ny-walls377.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_bebbc1ab_ob_999685_paintings-on-ny-walls451.jpg" class="ob-link-img"><img src="assets/img/full_bebbc1ab_ob_999685_paintings-on-ny-walls451.jpg" data-full="assets/img/full_bebbc1ab_ob_999685_paintings-on-ny-walls451.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_8c5b4408_ob_1c0b1e_paintings-on-ny-walls451a.jpg" class="ob-link-img"><img src="assets/img/full_8c5b4408_ob_1c0b1e_paintings-on-ny-walls451a.jpg" data-full="assets/img/full_8c5b4408_ob_1c0b1e_paintings-on-ny-walls451a.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_eb8d53e3_ob_09beae_paintings-on-ny-walls468.jpg" class="ob-link-img"><img src="assets/img/full_eb8d53e3_ob_09beae_paintings-on-ny-walls468.jpg" data-full="assets/img/full_eb8d53e3_ob_09beae_paintings-on-ny-walls468.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_871f5546_ob_b7592b_paintings-on-ny-walls492.jpg" class="ob-link-img"><img src="assets/img/full_871f5546_ob_b7592b_paintings-on-ny-walls492.jpg" data-full="assets/img/full_871f5546_ob_b7592b_paintings-on-ny-walls492.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_bddd0fe8_ob_39e818_paintings-on-ny-walls165.jpg" class="ob-link-img"><img src="assets/img/full_bddd0fe8_ob_39e818_paintings-on-ny-walls165.jpg" data-full="assets/img/full_bddd0fe8_ob_39e818_paintings-on-ny-walls165.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_30614b83_ob_186a28_paintings-on-ny-walls166.jpg" class="ob-link-img"><img src="assets/img/full_30614b83_ob_186a28_paintings-on-ny-walls166.jpg" data-full="assets/img/full_30614b83_ob_186a28_paintings-on-ny-walls166.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_4899613e_ob_95c9cb_paintings-on-ny-walls502.jpg" class="ob-link-img"><img src="assets/img/full_4899613e_ob_95c9cb_paintings-on-ny-walls502.jpg" data-full="assets/img/full_4899613e_ob_95c9cb_paintings-on-ny-walls502.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div><div class="ob-row-1-col"><a href="assets/img/full_55458bac_ob_ec1e95_paintings-on-ny-walls502a.jpg" class="ob-link-img"><img src="assets/img/full_55458bac_ob_ec1e95_paintings-on-ny-walls502a.jpg" data-full="assets/img/full_55458bac_ob_ec1e95_paintings-on-ny-walls502a.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_97b00266_ob_7c3e92_paintings-on-ny-walls514.jpg" class="ob-link-img"><img src="assets/img/full_97b00266_ob_7c3e92_paintings-on-ny-walls514.jpg" data-full="assets/img/full_97b00266_ob_7c3e92_paintings-on-ny-walls514.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>                  <div
+    class="ob-section ob-section-images ob-default"
+      ><div class="ob-row-1-col"><a href="assets/img/full_22273915_ob_bf662e_paintings-on-ny-walls536.jpg" class="ob-link-img"><img src="assets/img/full_22273915_ob_bf662e_paintings-on-ny-walls536.jpg" data-full="assets/img/full_22273915_ob_bf662e_paintings-on-ny-walls536.jpg" loading="lazy" alt="OTHERS&#x20;ONES&#x20;IN&#x20;MANHATTAN" class="ob-cell ob-img ob-media" loading="lazy" /></a></div></div>            
+
+  </div>
+  
+
+
+                                    
+                                                                        <div class="Post-returnToHome">
+                                        <a href="https://artiste-peintre-lepointre.over-blog.com">Retour à l'accueil</a>
+                                    </div>
+                                                                        <div class="Clear"></div>
+                                </div>
+                            

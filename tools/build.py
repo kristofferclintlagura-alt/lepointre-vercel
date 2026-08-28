@@ -1,0 +1,325 @@
+#!/usr/bin/env python3
+"""Build the Le Pointre Manifesto static site from editable content/ files.
+
+Content model (editable by client via Decap CMS):
+  content/site.json        branding: artist, tagline, hero_image, accent, featured[8]
+  content/posts/<slug>.md  frontmatter(title,date) + body HTML (images already local)
+  content/pages/<name>.md  frontmatter(title) + body HTML
+
+Output: public/  (deploy to Vercel root)
+"""
+import os, re, json, shutil
+from datetime import datetime
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PUBLIC = os.path.join(ROOT, "public")
+ASSETS = os.path.join(ROOT, "assets")
+CONTENT = os.path.join(ROOT, "content")
+
+def read_md(path):
+    txt = open(path, encoding="utf-8").read()
+    fm = {}
+    body = txt
+    m = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)$", txt, re.S)
+    if m:
+        for line in m.group(1).splitlines():
+            if ":" in line:
+                k, v = line.split(":", 1)
+                fm[k.strip()] = v.strip()
+        body = m.group(2)
+    return fm, body.strip()
+
+def load_site():
+    return json.load(open(os.path.join(CONTENT, "site.json"), encoding="utf-8"))
+
+def load_posts():
+    posts = []
+    pd = os.path.join(CONTENT, "posts")
+    for fn in os.listdir(pd):
+        if fn.endswith(".md"):
+            fm, body = read_md(os.path.join(pd, fn))
+            slug = fn[:-3]
+            # count images in body for "visual" ranking
+            imgs = re.findall(r'src="([^"]+)"', body)
+            posts.append({"slug": slug, "title": fm.get("title", slug),
+                          "date": fm.get("date", ""), "body": body, "n_img": len(imgs)})
+    # sort by date desc
+    posts.sort(key=lambda p: p["date"], reverse=True)
+    return posts
+
+def load_pages():
+    pages = {}
+    pgd = os.path.join(CONTENT, "pages")
+    for fn in os.listdir(pgd):
+        if fn.endswith(".md"):
+            fm, body = read_md(os.path.join(pgd, fn))
+            pages[fn[:-3]] = {"title": fm.get("title", fn[:-3]), "body": body}
+    return pages
+
+# ---------- styling ----------
+CSS = """/* ===== Le Pointre — MANIFESTO ===== */
+:root{
+  --bg:#141414; --bg2:#1c1c1c; --fg:#f4f1ea; --muted:#9a958c;
+  --line:#2c2c2c; --accent:#e23b2e; --card:#1a1a1a;
+  --font-display:"Oswald","Arial Narrow",Impact,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* header */
+.site-head{position:sticky;top:0;z-index:30;background:rgba(20,20,20,.9);
+  backdrop-filter:blur(8px);border-bottom:2px solid var(--accent)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;font-size:24px}
+.brand b{color:var(--accent)}
+.nav a{margin-left:20px;font-family:var(--font-display);text-transform:uppercase;
+  letter-spacing:.12em;font-size:14px;color:var(--muted)}
+.nav a:hover{color:var(--accent)}
+
+/* hero */
+.hero{position:relative;border-bottom:2px solid var(--line);overflow:hidden}
+.hero-img{width:100%;height:62vh;min-height:340px;object-fit:cover;filter:grayscale(.25) contrast(1.05)}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(20,20,20,.92))}
+.hero-txt{position:absolute;left:0;right:0;bottom:0;padding:34px 22px}
+.hero-txt h1{font-family:var(--font-display);font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;font-size:clamp(40px,9vw,110px);margin:0;line-height:.92}
+.hero-txt h1 b{color:var(--accent);font-style:italic}
+.hero-txt p{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.18em;
+  color:var(--fg);opacity:.85;margin:10px 0 0;font-size:clamp(13px,2vw,18px)}
+.hero-note{position:absolute;top:18px;left:22px;font-family:var(--font-display);
+  text-transform:uppercase;letter-spacing:.3em;font-size:12px;color:var(--accent);
+  border:1px solid var(--accent);padding:4px 10px;transform:rotate(-2deg)}
+
+/* section label */
+.sec-label{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.3em;
+  font-size:13px;color:var(--accent);padding:46px 22px 6px;border-bottom:1px solid var(--line);
+  max-width:1180px;margin:0 auto}
+.sec-label b{color:var(--fg)}
+
+/* post tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  padding:24px 22px 60px;max-width:1180px;margin:0 auto}
+.tile{position:relative;background:var(--card);border:1px solid var(--line);
+  overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s;transform:rotate(var(--rot,0deg))}
+.tile:hover{transform:rotate(0) scale(1.02);border-color:var(--accent);z-index:5}
+.tile .ph{aspect-ratio:4/3;overflow:hidden;background:#000}
+.tile .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.05);
+  transition:transform .4s}
+.tile:hover .ph img{transform:scale(1.06);filter:none}
+.tile .cap{padding:11px 12px 13px}
+.tile .cap h3{margin:0;font-family:var(--font-display);text-transform:uppercase;
+  letter-spacing:.04em;font-size:16px;line-height:1.1}
+.tile .cap .d{color:var(--muted);font-size:12px;margin-top:4px;letter-spacing:.05em}
+.tile .tag{position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;
+  font-family:var(--font-display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:2px 8px;transform:rotate(-3deg)}
+
+/* gallery strip (every artwork) */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:8px;padding:24px 22px 60px;max-width:1180px;margin:0 auto}
+.gcell{position:relative;aspect-ratio:1/1;overflow:hidden;background:#000;cursor:zoom-in}
+.gcell img{width:100%;height:100%;object-fit:cover;transition:transform .35s,filter .35s;
+  filter:grayscale(.25)}
+.gcell:hover img{transform:scale(1.06);filter:none}
+.gcell .tag{position:absolute;bottom:0;left:0;right:0;padding:6px 8px;font-size:11px;
+  background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff;opacity:0;transition:opacity .3s}
+.gcell:hover .tag{opacity:1}
+
+/* post body page */
+.post{max-width:860px;margin:0 auto;padding:40px 22px 70px}
+.post h1{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.02em;
+  font-size:clamp(28px,5vw,52px);line-height:1;margin:0 0 6px}
+.post .date{color:var(--accent);font-family:var(--font-display);letter-spacing:.18em;
+  text-transform:uppercase;font-size:13px;margin-bottom:26px}
+.post .body img{border:1px solid var(--line);margin:18px 0;border-radius:2px;cursor:zoom-in}
+.post .body p{font-size:17px}
+.backlink{display:inline-block;margin:30px 22px;font-family:var(--font-display);
+  text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-size:13px}
+
+/* generic page */
+.page{max-width:760px;margin:0 auto;padding:48px 22px 70px}
+.page h1{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(34px,6vw,64px);
+  letter-spacing:.02em;margin:0 0 20px}
+.page h1 b{color:var(--accent)}
+
+/* footer */
+.site-foot{border-top:2px solid var(--line);padding:28px 22px;color:var(--muted);
+  text-align:center;font-size:13px}
+.site-foot b{color:var(--fg)}
+
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(8,8,8,.96);display:none;align-items:center;
+  justify-content:center;z-index:100}
+#lb.on{display:flex}
+#lb img{max-width:92vw;max-height:88vh;border:1px solid var(--line)}
+#lb .x,#lb .p,#lb .n{position:fixed;background:none;border:none;color:#fff;cursor:pointer;
+  font-size:42px;opacity:.75}
+#lb .x{top:16px;right:22px}#lb .p{left:16px;top:50%}#lb .n{right:16px;top:50%}
+#lb .x:hover,#lb .p:hover,#lb .n:hover{color:var(--accent);opacity:1}
+
+/* responsive */
+@media(max-width:980px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){
+  .tiles{grid-template-columns:1fr}
+  .site-head .wrap{height:56px}
+  .brand{font-size:19px}
+  .nav a{margin-left:13px;font-size:12px}
+  .hero-img{height:48vh;min-height:260px}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+}
+"""
+
+JS = """const LB=document.getElementById('lb'),LBI=document.getElementById('lbi');
+let G=[],GI=0;
+function openLB(list,i){G=list;GI=i;LBI.src=G[GI];LB.classList.add('on');document.body.style.overflow='hidden';}
+function closeLB(){LB.classList.remove('on');document.body.style.overflow='';}
+function navLB(d){GI=(GI+d+G.length)%G.length;LBI.src=G[GI];}
+document.querySelectorAll('.gcell').forEach(c=>c.onclick=()=>openLB(window.__G,c.dataset.i));
+document.querySelectorAll('.post .body img').forEach(im=>im.onclick=()=>{LBI.src=im.getAttribute('data-full')||im.src;LB.classList.add('on');G=[];document.body.style.overflow='hidden';});
+LB.onclick=e=>{if(e.target===LB)closeLB();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')navLB(1);if(e.key==='ArrowLeft')navLB(-1);});
+"""
+
+def head(title, site, base=""):
+    return f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/">
+<title>{title} — {site['artist']}</title>
+<meta name="description" content="{site['artist']} — {site.get('tagline','')}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="index.html">{site['artist'].split()[0]}<b>·</b>{site['artist'].split()[-1] if len(site['artist'].split())>1 else ''}</a>
+  <nav class="nav">
+    <a href="index.html">Accueil</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="about.html">À propos</a>
+    <a href="boutique.html">Boutique</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</div></header>
+"""
+
+def foot():
+    return """<footer class="site-foot"><b>LE POINTRE</b> — peintre. Migré depuis Overblog · hébergé gratuitement, domaine <b>lepointre.com</b> à brancher.</footer>
+<div id="lb"><button class="x" onclick="closeLB()">×</button><button class="p" onclick="navLB(-1)">‹</button><img id="lbi" src=""><button class="n" onclick="navLB(1)">›</button></div>
+<script src="assets/js/site.js"></script></body></html>"""
+
+def post_cover(post):
+    m = re.search(r'src="([^"]+)"', post["body"])
+    return m.group(1) if m else ""
+
+def build():
+    site = load_site()
+    posts = load_posts()
+    pages = load_pages()
+    # fix brand rendering: artist may be one word
+    os.makedirs(os.path.join(PUBLIC, "assets", "css"), exist_ok=True)
+    os.makedirs(os.path.join(PUBLIC, "assets", "js"), exist_ok=True)
+    with open(os.path.join(PUBLIC, "assets", "css", "style.css"), "w", encoding="utf-8") as f:
+        f.write(CSS.replace("#e23b2e", site.get("accent", "#e23b2e")))
+    with open(os.path.join(PUBLIC, "assets", "js", "site.js"), "w", encoding="utf-8") as f:
+        f.write(JS)
+    # copy ONLY referenced images (lean deploy)
+    needed = set()
+    for p in posts:
+        for u in re.findall(r'src="(assets/img/[^"]+)"', p["body"]):
+            needed.add(u.replace("assets/img/", ""))
+    os.makedirs(os.path.join(PUBLIC, "assets", "img"), exist_ok=True)
+    copied = 0
+    for base in needed:
+        srcf = os.path.join(ASSETS, "img", base)
+        if os.path.exists(srcf):
+            shutil.copy(srcf, os.path.join(PUBLIC, "assets", "img", base))
+            copied += 1
+    # copy admin (Decap CMS) into public/admin/
+    import shutil as _sh
+    adm_src = os.path.join(ROOT, "admin")
+    if os.path.isdir(adm_src):
+        _sh.copytree(adm_src, os.path.join(PUBLIC, "admin"), dirs_exist_ok=True)
+        print("copied admin/ -> public/admin/")
+
+
+    featured = [p for p in posts if p["slug"] in site.get("featured", [])][:8]
+    # fallback: if featured missing, take top-8 by image count
+    if len(featured) < 8:
+        extra = [p for p in posts if p not in featured]
+        extra.sort(key=lambda x: x["n_img"], reverse=True)
+        featured += extra[:8 - len(featured)]
+
+    # ---- index ----
+    hero = ""
+    if site.get("hero_image"):
+        hero = f'<section class="hero"><img class="hero-img" src="{site["hero_image"]}" alt=""><div class="hero-veil"></div><div class="hero-note">Atelier</div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
+    else:
+        hero = f'<section class="hero" style="background:var(--bg2)"><div class="hero-veil"></div><div class="hero-note">Atelier</div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
+    tiles = []
+    rots = ["-1.2deg","1deg","-0.6deg","0.8deg","-1deg","1.3deg","-0.9deg","0.7deg"]
+    for i, p in enumerate(featured):
+        cov = post_cover(p)
+        tiles.append(f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph"><img loading="lazy" src="{cov}" alt="{p["title"]}"></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>')
+    idx = (head("Accueil", site) + hero +
+           '<div class="sec-label">Sélection — <b>8 œuvres / expositions</b></div>' +
+           '<section class="tiles">' + "".join(tiles) + "</section>" +
+           '<div class="sec-label">L’intégrale — <b>toutes les toiles</b></div>' +
+           '<section class="tiles">' + "".join(
+               f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph"><img loading="lazy" src="{post_cover(p)}" alt=""></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>'
+               for i, p in enumerate(posts)) + "</section>" + foot())
+    open(os.path.join(PUBLIC, "index.html"), "w", encoding="utf-8").write(idx)
+
+    # ---- galerie (every artwork grid + lightbox) ----
+    allimgs = []
+    seen = set()
+    for p in posts:
+        for u in re.findall(r'src="([^"]+)"', p["body"]):
+            if u in seen:
+                continue
+            seen.add(u)
+            full = re.search(r'data-full="([^"]+)"', p["body"])
+            allimgs.append({"full": u})
+    gal = []
+    for i, g in enumerate(allimgs):
+        gal.append(f'<div class="gcell" data-i="{i}"><img loading="lazy" src="{g["full"]}" alt=""></div>')
+    gjson = json.dumps([g["full"] for g in allimgs], ensure_ascii=False)
+    galpage = (head("Galerie", site) +
+               '<div class="sec-label">Galerie — <b>toutes les œuvres</b></div>' +
+               '<section class="gallery">' + "".join(gal) + "</section>" +
+               f'<script>window.__G={gjson};</script>' + foot())
+    open(os.path.join(PUBLIC, "galerie.html"), "w", encoding="utf-8").write(galpage)
+
+    # ---- post pages ----
+    os.makedirs(os.path.join(PUBLIC, "posts"), exist_ok=True)
+    for p in posts:
+        body = re.sub(r'<p class="meta"[^>]*>.*?</p>', "", p["body"], flags=re.S)
+        html = (head(p["title"], site) +
+                f'<article class="post"><h1>{p["title"]}</h1><div class="date">{p["date"]}</div><div class="body">{body}</div></article>' +
+                '<a class="backlink" href="index.html">‹ Retour</a>' + foot())
+        open(os.path.join(PUBLIC, "posts", p["slug"] + ".html"), "w", encoding="utf-8").write(html)
+
+    # ---- simple pages ----
+    for name in ("about", "contact", "shop"):
+        if name in pages:
+            html = (head(pages[name]["title"], site) +
+                    f'<div class="page"><h1>{pages[name]["title"]}</h1>{pages[name]["body"]}</div>' + foot())
+            open(os.path.join(PUBLIC, name + ".html"), "w", encoding="utf-8").write(html)
+
+    # ---- 404 ----
+    open(os.path.join(PUBLIC, "404.html"), "w", encoding="utf-8").write(
+        head("404", site) + '<div class="page"><h1>404</h1><p>Page introuvable. <a href="index.html" style="color:var(--accent)">Retour à l’accueil</a></p></div>' + foot())
+
+    print(f"BUILT: {len(posts)} posts, {len(allimgs)} artworks in galerie, featured={[p['slug'] for p in featured]}")
+
+if __name__ == "__main__":
+    build()

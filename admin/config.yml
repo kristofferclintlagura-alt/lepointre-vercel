@@ -1,0 +1,52 @@
+backend:
+  name: github
+  repo: <YOUR_GITHUB_USER>/<YOUR_REPO>   # e.g. lagur/lepointre-vercel
+  branch: main
+media_folder: "assets/img"
+public_folder: "assets/img"
+publish_mode: editorial_workflow
+
+collections:
+  - name: "posts"
+    label: "Articles"
+    folder: "content/posts"
+    slug: "{{slug}}"
+    create: true
+    fields:
+      - { name: title, label: "Titre" }
+      - { name: date, label: "Date (AAAA-MM)", required: false }
+      - { name: body, label: "Contenu", widget: "markdown", hint: "Collez le texte et les images. Les images déjà téléchargées restent." }
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: about
+        label: "À propos"
+        file: "content/pages/about.md"
+        fields:
+          - { name: title, label: "Titre" }
+          - { name: body, label: "Contenu", widget: "markdown" }
+      - name: contact
+        label: "Contact"
+        file: "content/pages/contact.md"
+        fields:
+          - { name: title, label: "Titre" }
+          - { name: body, label: "Contenu", widget: "markdown" }
+      - name: shop
+        label: "Boutique"
+        file: "content/pages/shop.md"
+        fields:
+          - { name: title, label: "Titre" }
+          - { name: body, label: "Contenu", widget: "markdown" }
+  - name: "site"
+    label: "Paramètres du site"
+    file: "content/site.json"
+    fields:
+      - { name: artist, label: "Nom de l'artiste" }
+      - { name: tagline, label: "Slogan" }
+      - { name: hero_image, label: "Photo d'en-tête (chemin)", required: false, hint: "ex: assets/img/hero.jpg" }
+      - { name: accent, label: "Couleur d'accent (hex)", required: false }
+      - name: featured
+        label: "8 articles en page d'accueil"
+        widget: "list"
+        required: false
+        field: { name: slug, label: "Slug de l'article" }
