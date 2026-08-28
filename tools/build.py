@@ -25,7 +25,8 @@ def read_md(path):
         for line in m.group(1).splitlines():
             if ":" in line:
                 k, v = line.split(":", 1)
-                fm[k.strip()] = v.strip()
+                v = v.strip().strip('"').strip("'")
+                fm[k.strip()] = v
         body = m.group(2)
     return fm, body.strip()
 
@@ -41,8 +42,22 @@ def load_posts():
             slug = fn[:-3]
             # count images in body for "visual" ranking
             imgs = re.findall(r'src="([^"]+)"', body)
+            # sanitize: remove ANY overblog reference (links, footers, comment API)
+            # 1) drop "Retour à l'accueil" footer links entirely
+            body = re.sub(r'<a\b[^>]*\shref="[^"]*over-blog[^"]*"[^>]*>\s*[^<]*Retour[^<]*</a>', "", body, flags=re.S|re.I)
+            # 2) unwrap image links that point to overblog CDN (KEEP the inner <img>)
+            body = re.sub(r'<a\b[^>]*\shref="[^"]*over-blog[^"]*"[^>]*>(.*?)</a>', r"\1", body, flags=re.S|re.I)
+            # 3) neutralize any other stray overblog href
+            body = re.sub(r'href="[^"]*over-blog[^"]*"', 'href="#"', body, flags=re.I)
+            # 4) remove overblog comment-count <script> widgets
+            body = re.sub(r'<script.*?</script>', "", body, flags=re.S|re.I)
+            date = fm.get("date", "").strip()
+            if not date:
+                # try to infer from any YYYY-MM occurrence in filename/title
+                dm = re.search(r'(19|20)\d{2}[-_]\d{2}', slug)
+                date = dm.group(0).replace("_", "-") if dm else ""
             posts.append({"slug": slug, "title": fm.get("title", slug),
-                          "date": fm.get("date", ""), "body": body, "n_img": len(imgs)})
+                          "date": date, "body": body, "n_img": len(imgs)})
     # sort by date desc
     posts.sort(key=lambda p: p["date"], reverse=True)
     return posts
@@ -81,6 +96,27 @@ img{max-width:100%;display:block}
 .nav a{margin-left:20px;font-family:var(--font-display);text-transform:uppercase;
   letter-spacing:.12em;font-size:14px;color:var(--muted)}
 .nav a:hover{color:var(--accent)}
+.site-title{font-family:var(--font-body);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;margin-left:14px;padding-left:14px;border-left:1px solid var(--line)}
+/* dropdown nav */
+.nav-dd{position:relative;display:inline-block}
+.nav-dd .dd-trigger{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.12em;
+  font-size:14px;color:var(--muted);margin-left:20px;cursor:pointer}
+.nav-dd .dd-trigger:hover{color:var(--accent)}
+.dd-box{position:absolute;top:100%;left:0;margin-top:10px;background:var(--bg2);border:1px solid var(--line);
+  border-top:2px solid var(--accent);min-width:240px;max-height:60vh;overflow:auto;padding:6px 0;
+  display:none;z-index:50;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.dd-box.wide{min-width:320px}
+.nav-dd:hover .dd-box{display:block}
+.dd-box .dd-year{font-family:var(--font-display);color:var(--accent);font-size:12px;letter-spacing:.1em;
+  padding:8px 14px 4px;text-transform:uppercase}
+.dd-box .dd-item{display:block;padding:6px 14px;color:var(--fg);font-size:13px;line-height:1.25;
+  border-bottom:1px solid rgba(255,255,255,.04)}
+.dd-box .dd-item:hover{background:var(--accent);color:#fff}
+@media(max-width:980px){
+  .site-title{display:none}
+  .dd-box{max-height:50vh}
+}
 
 /* hero */
 .hero{position:relative;border-bottom:2px solid var(--line);overflow:hidden}
@@ -190,25 +226,53 @@ LB.onclick=e=>{if(e.target===LB)closeLB();};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')navLB(1);if(e.key==='ArrowLeft')navLB(-1);});
 """
 
-def head(title, site, base=""):
+def head(title, site, posts=None, base=""):
+    artist = site['artist']
+    brand = artist.split()[0] + "<b>·</b>" + (artist.split()[-1] if len(artist.split()) > 1 else "")
+    site_title = site.get("site_title", "Les peintures et toiles de " + artist)
+    # ---- PAGES dropdown (every post) ----
+    pages_menu = ""
+    if posts:
+        items = "".join(
+            f'<a class="dd-item" href="posts/{p["slug"]}.html">{p["title"]}</a>'
+            for p in posts)
+        pages_menu = f'<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Pages ▾</a><div class="dd-box">{items}</div></div>'
+        # ---- ARCHIVES dropdown (grouped by year) ----
+        years = {}
+        for p in posts:
+            y = (p["date"][:4] if p["date"] else "Sans date")
+            years.setdefault(y, []).append(p)
+        arch_items = ""
+        for y in sorted(years.keys(), reverse=True):
+            arch_items += f'<div class="dd-year">{y}</div>'
+            arch_items += "".join(
+                f'<a class="dd-item" href="posts/{p["slug"]}.html">{p["title"]}</a>'
+                for p in years[y])
+        arch_menu = f'<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Archives ▾</a><div class="dd-box wide">{arch_items}</div></div>'
+    else:
+        pages_menu = '<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Pages ▾</a></div>'
+        arch_menu = '<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Archives ▾</a></div>'
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <base href="/">
-<title>{title} — {site['artist']}</title>
-<meta name="description" content="{site['artist']} — {site.get('tagline','')}">
+<title>{title} — {artist}</title>
+<meta name="description" content="{artist} — {site.get('tagline','')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <header class="site-head"><div class="wrap">
-  <a class="brand" href="index.html">{site['artist'].split()[0]}<b>·</b>{site['artist'].split()[-1] if len(site['artist'].split())>1 else ''}</a>
+  <a class="brand" href="index.html">{brand}</a>
+  <div class="site-title">{site_title}</div>
   <nav class="nav">
     <a href="index.html">Accueil</a>
     <a href="galerie.html">Galerie</a>
+    {pages_menu}
+    {arch_menu}
     <a href="about.html">À propos</a>
     <a href="boutique.html">Boutique</a>
     <a href="contact.html">Contact</a>
@@ -278,7 +342,7 @@ def build():
         else:
             ph = f'<div class="ph ph-empty"><span>{p["title"]}</span></div>'
         tiles.append(f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html">{ph}<div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>')
-    idx = (head("Accueil", site) + hero +
+    idx = (head("Accueil", site, posts) + hero +
            '<div class="sec-label">Sélection — <b>8 œuvres / expositions</b></div>' +
            '<section class="tiles">' + "".join(tiles) + "</section>" +
            '<div class="sec-label">L’intégrale — <b>toutes les toiles</b></div>' +
@@ -302,7 +366,7 @@ def build():
     for i, g in enumerate(allimgs):
         gal.append(f'<div class="gcell" data-i="{i}"><img loading="lazy" src="{g["full"]}" alt=""></div>')
     gjson = json.dumps([g["full"] for g in allimgs], ensure_ascii=False)
-    galpage = (head("Galerie", site) +
+    galpage = (head("Galerie", site, posts) +
                '<div class="sec-label">Galerie — <b>toutes les œuvres</b></div>' +
                '<section class="gallery">' + "".join(gal) + "</section>" +
                f'<script>window.__G={gjson};</script>' + foot())
@@ -312,7 +376,7 @@ def build():
     os.makedirs(os.path.join(PUBLIC, "posts"), exist_ok=True)
     for p in posts:
         body = re.sub(r'<p class="meta"[^>]*>.*?</p>', "", p["body"], flags=re.S)
-        html = (head(p["title"], site) +
+        html = (head(p["title"], site, posts) +
                 f'<article class="post"><h1>{p["title"]}</h1><div class="date">{p["date"]}</div><div class="body">{body}</div></article>' +
                 '<a class="backlink" href="index.html">‹ Retour</a>' + foot())
         open(os.path.join(PUBLIC, "posts", p["slug"] + ".html"), "w", encoding="utf-8").write(html)
@@ -320,13 +384,13 @@ def build():
     # ---- simple pages ----
     for name in ("about", "contact", "shop"):
         if name in pages:
-            html = (head(pages[name]["title"], site) +
+            html = (head(pages[name]["title"], site, posts) +
                     f'<div class="page"><h1>{pages[name]["title"]}</h1>{pages[name]["body"]}</div>' + foot())
             open(os.path.join(PUBLIC, name + ".html"), "w", encoding="utf-8").write(html)
 
     # ---- 404 ----
     open(os.path.join(PUBLIC, "404.html"), "w", encoding="utf-8").write(
-        head("404", site) + '<div class="page"><h1>404</h1><p>Page introuvable. <a href="index.html" style="color:var(--accent)">Retour à l’accueil</a></p></div>' + foot())
+        head("404", site, posts) + '<div class="page"><h1>404</h1><p>Page introuvable. <a href="index.html" style="color:var(--accent)">Retour à l’accueil</a></p></div>' + foot())
 
     print(f"BUILT: {len(posts)} posts, {len(allimgs)} artworks in galerie, featured={[p['slug'] for p in featured]}")
 
