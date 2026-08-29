@@ -377,9 +377,11 @@ def build():
 
 
     featured = [p for p in posts if p["slug"] in site.get("featured", [])][:8]
+    # posts excluded from the homepage tiles (their content lives elsewhere, e.g. About)
+    home_exclude = set(site.get("home_exclude", []))
     # fallback: if featured missing, take top-8 by image count
     if len(featured) < 8:
-        extra = [p for p in posts if p not in featured]
+        extra = [p for p in posts if p not in featured and p["slug"] not in home_exclude]
         extra.sort(key=lambda x: x["n_img"], reverse=True)
         featured += extra[:8 - len(featured)]
 
@@ -399,8 +401,8 @@ def build():
            '<section class="tiles">' + "".join(tiles) + "</section>" +
            '<div class="sec-label">L’intégrale — <b>toutes les toiles</b></div>' +
            f'<section class="tiles">' + "".join(
-           (f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph"><img loading="lazy" src="{post_cover(p)}" alt=""></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>' if post_cover(p)
-            else f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph ph-empty"><span>{p["title"]}</span></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>')
+           (f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph"><img loading="lazy" src="{post_cover(p)}" alt=""></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>' if (post_cover(p) and p["slug"] not in home_exclude)
+            else (f'<a class="tile" style="--rot:{rots[i%len(rots)]}" href="posts/{p["slug"]}.html"><div class="ph ph-empty"><span>{p["title"]}</span></div><div class="cap"><h3>{p["title"]}</h3><div class="d">{p["date"]}</div></div></a>' if p["slug"] not in home_exclude else ""))
            for i, p in enumerate(posts)) + "</section>" + foot())
     open(os.path.join(PUBLIC, "index.html"), "w", encoding="utf-8").write(idx)
 

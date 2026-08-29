@@ -13,5 +13,8 @@
     "vaccinal-en-manifs",
     "theatre-occupe-pendant-le-confinement-affiches-le-pointre",
     "paintings-on-new-york-walls-serie-elephants"
+  ],
+  "home_exclude": [
+    "le-pointre"
   ]
 }
