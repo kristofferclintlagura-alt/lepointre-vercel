@@ -51,6 +51,18 @@ def load_posts():
             body = re.sub(r'href="[^"]*over-blog[^"]*"', 'href="#"', body, flags=re.I)
             # 4) remove overblog comment-count <script> widgets
             body = re.sub(r'<script.*?</script>', "", body, flags=re.S|re.I)
+            # 5) strip overblog UI chrome (header/meta/return/footer/pagination)
+            body = re.sub(r'<div class="Post-header">.*?</div>\s*', "", body, flags=re.S|re.I)
+            body = re.sub(r'<p class="Post-meta[^"]*">.*?</p>', "", body, flags=re.S|re.I)
+            body = re.sub(r'<div class="Post-returnToHome">.*?</div>', "", body, flags=re.S|re.I)
+            body = re.sub(r'<div class="Pagination[^"]*">.*?</div>', "", body, flags=re.S|re.I)
+            body = re.sub(r'<div class="Clear"></div>', "", body, flags=re.S|re.I)
+            # 6) unwrap ob-section/ob-sections containers (keep inner content/images)
+            body = re.sub(r'</?div class="ob-sections?"[^>]*>', "", body, flags=re.S|re.I)
+            body = re.sub(r'</?div class="ob-section[^"]*">', "", body, flags=re.S|re.I)
+            body = re.sub(r' class="ob-section[^"]*"', "", body, flags=re.S|re.I)
+            # 7) drop empty paragraphs
+            body = re.sub(r'<p>\s*</p>', "", body, flags=re.S)
             date = fm.get("date", "").strip()
             if not date:
                 # try to infer from any YYYY-MM occurrence in filename/title
@@ -112,7 +124,7 @@ img{max-width:100%;display:block}
   border-top:2px solid var(--accent);min-width:240px;max-height:60vh;overflow:auto;padding:6px 0;
   display:none;z-index:50;box-shadow:0 14px 40px rgba(0,0,0,.5)}
 .dd-box.wide{min-width:320px}
-.nav-dd:hover .dd-box{display:block}
+.nav-dd:hover .dd-box,.nav-dd.open .dd-box{display:block}
 .dd-box .dd-year{font-family:var(--font-display);color:var(--accent);font-size:12px;letter-spacing:.1em;
   padding:8px 14px 4px;text-transform:uppercase}
 .dd-box .dd-item{display:block;padding:6px 14px;color:var(--fg);font-size:13px;line-height:1.25;
@@ -192,6 +204,15 @@ img{max-width:100%;display:block}
 .page h1{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(34px,6vw,64px);
   letter-spacing:.02em;margin:0 0 20px}
 .page h1 b{color:var(--accent)}
+/* listing pages (Pages / Archives) */
+.year-group{margin:0 0 26px}
+.year-group h2{font-family:var(--font-display);color:var(--accent);font-size:20px;letter-spacing:.08em;
+  text-transform:uppercase;margin:0 0 10px;border-bottom:2px solid var(--line);padding-bottom:6px}
+.post-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 22px}
+.post-list a{display:block;padding:9px 12px;background:var(--bg2);border:1px solid var(--line);
+  color:var(--fg);font-size:14px;border-left:3px solid var(--accent)}
+.post-list a:hover{background:var(--accent);color:#fff}
+@media(max-width:560px){.post-list{grid-template-columns:1fr}}
 
 /* footer */
 .site-foot{border-top:2px solid var(--line);padding:28px 22px;color:var(--muted);
@@ -227,6 +248,17 @@ function closeLB(){LB.classList.remove('on');document.body.style.overflow='';}
 function navLB(d){GI=(GI+d+G.length)%G.length;LBI.src=G[GI];}
 document.querySelectorAll('.gcell').forEach(c=>c.onclick=()=>openLB(window.__G,c.dataset.i));
 document.querySelectorAll('.post .body img').forEach(im=>im.onclick=()=>{LBI.src=im.getAttribute('data-full')||im.src;LB.classList.add('on');G=[];document.body.style.overflow='hidden';});
+/* dropdown nav: click to toggle open (so you can scroll inside), click outside to close */
+document.querySelectorAll('.nav-dd').forEach(dd=>{
+  const trig=dd.querySelector('.dd-trigger');
+  trig.addEventListener('click',e=>{e.stopPropagation();
+    const open=dd.classList.contains('open');
+    document.querySelectorAll('.nav-dd.open').forEach(o=>o.classList.remove('open'));
+    if(!open)dd.classList.add('open');
+  });
+  trig.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();trig.click();}});
+});
+document.addEventListener('click',()=>document.querySelectorAll('.nav-dd.open').forEach(o=>o.classList.remove('open')));
 LB.onclick=e=>{if(e.target===LB)closeLB();};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')navLB(1);if(e.key==='ArrowLeft')navLB(-1);});
 """
@@ -242,7 +274,7 @@ def head(title, site, posts=None, base=""):
         items = "".join(
             f'<a class="dd-item" href="posts/{p["slug"]}.html">{p["title"]}</a>'
             for p in posts)
-        pages_menu = f'<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Pages ▾</a><div class="dd-box">{items}</div></div>'
+        pages_menu = f'<div class="nav-dd"><span class="dd-trigger" tabindex="0">Pages ▾</span><div class="dd-box">{items}</div></div>'
         # ---- ARCHIVES dropdown (grouped by year) ----
         years = {}
         for p in posts:
@@ -254,7 +286,7 @@ def head(title, site, posts=None, base=""):
             arch_items += "".join(
                 f'<a class="dd-item" href="posts/{p["slug"]}.html">{p["title"]}</a>'
                 for p in years[y])
-        arch_menu = f'<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Archives ▾</a><div class="dd-box wide">{arch_items}</div></div>'
+        arch_menu = f'<div class="nav-dd"><span class="dd-trigger" tabindex="0">Archives ▾</span><div class="dd-box wide">{arch_items}</div></div>'
     else:
         pages_menu = '<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Pages ▾</a></div>'
         arch_menu = '<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Archives ▾</a></div>'
@@ -364,11 +396,14 @@ def build():
     allimgs = []
     seen = set()
     for p in posts:
-        for u in re.findall(r'src="([^"]+)"', p["body"]):
+        for m in re.finditer(r'<img\b[^>]*\bsrc="([^"]+)"', p["body"]):
+            u = m.group(1)
+            # only real local paintings (skip youtube/embedly video embeds & ui junk)
+            if not u.startswith("assets/img/"):
+                continue
             if u in seen:
                 continue
             seen.add(u)
-            full = re.search(r'data-full="([^"]+)"', p["body"])
             allimgs.append({"full": u})
     gal = []
     for i, g in enumerate(allimgs):
@@ -395,6 +430,27 @@ def build():
             html = (head(pages[name]["title"], site, posts) +
                     f'<div class="page"><h1>{pages[name]["title"]}</h1>{pages[name]["body"]}</div>' + foot())
             open(os.path.join(PUBLIC, name + ".html"), "w", encoding="utf-8").write(html)
+
+    # ---- PAGES listing (every post) ----
+    pages_list = "".join(
+        f'<a href="posts/{p["slug"]}.html">{p["title"]}</a>' for p in posts)
+    pagespage = (head("Pages", site, posts) +
+                 f'<div class="page"><h1>Toutes les pages</h1><div class="post-list">{pages_list}</div></div>' + foot())
+    open(os.path.join(PUBLIC, "pages.html"), "w", encoding="utf-8").write(pagespage)
+
+    # ---- ARCHIVES listing (grouped by year) ----
+    years = {}
+    for p in posts:
+        y = (p["date"][:4] if p["date"] else "Sans date")
+        years.setdefault(y, []).append(p)
+    arch_html = ""
+    for y in sorted(years.keys(), reverse=True):
+        items = "".join(
+            f'<a href="posts/{p["slug"]}.html">{p["title"]}</a>' for p in years[y])
+        arch_html += f'<div class="year-group"><h2>{y}</h2><div class="post-list">{items}</div></div>'
+    archpage = (head("Archives", site, posts) +
+                f'<div class="page"><h1>Archives</h1>{arch_html}</div>' + foot())
+    open(os.path.join(PUBLIC, "archives.html"), "w", encoding="utf-8").write(archpage)
 
     # ---- 404 ----
     open(os.path.join(PUBLIC, "404.html"), "w", encoding="utf-8").write(

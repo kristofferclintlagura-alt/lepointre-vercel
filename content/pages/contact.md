@@ -1,8 +1,13 @@
 ---
 title: Contact
 ---
-# Contact
+# Contact Le Pointre
 
-Pour commission, exposition ou acquisition : *à renseigner*.
+Pour commande, commission, exposition ou acquisition, contactez Le Pointre directement :
 
-Formulaire ou email à ajouter ici (ex. Formspree gratuit, ou lien mailto).
+- **WhatsApp :** [+33 7 81 78 56 81](https://wa.me/33781785681)
+- **Email :** cailleaumichel@yahoo.fr
+
+<a class="wa-btn" href="https://wa.me/33781785681" target="_blank" rel="noopener">📱 Contacter sur WhatsApp</a>
+
+<small>Réponse généralement sous 24h.</small>
