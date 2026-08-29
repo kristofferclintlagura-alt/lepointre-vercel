@@ -96,8 +96,13 @@ img{max-width:100%;display:block}
 .nav a{margin-left:20px;font-family:var(--font-display);text-transform:uppercase;
   letter-spacing:.12em;font-size:14px;color:var(--muted)}
 .nav a:hover{color:var(--accent)}
-.site-title{font-family:var(--font-body);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--muted);white-space:nowrap;margin-left:14px;padding-left:14px;border-left:1px solid var(--line)}
+/* title banner (big, visible — like Overblog) */
+.title-banner{background:var(--bg2);border-bottom:2px solid var(--accent);padding:18px 22px;text-align:center}
+.title-banner span{font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;font-size:clamp(22px,4.4vw,46px);line-height:1.05;color:var(--fg)}
+/* photo banner */
+.photo-banner{width:100%;height:clamp(320px,42vh,620px);overflow:hidden;background:#000;border-bottom:2px solid var(--line)}
+.photo-banner img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.04)}
 /* dropdown nav */
 .nav-dd{position:relative;display:inline-block}
 .nav-dd .dd-trigger{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.12em;
@@ -230,6 +235,7 @@ def head(title, site, posts=None, base=""):
     artist = site['artist']
     brand = artist.split()[0] + "<b>·</b>" + (artist.split()[-1] if len(artist.split()) > 1 else "")
     site_title = site.get("site_title", "Les peintures et toiles de " + artist)
+    banner_img = site.get("hero_image", "")
     # ---- PAGES dropdown (every post) ----
     pages_menu = ""
     if posts:
@@ -252,6 +258,9 @@ def head(title, site, posts=None, base=""):
     else:
         pages_menu = '<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Pages ▾</a></div>'
         arch_menu = '<div class="nav-dd"><a class="dd-trigger" href="galerie.html">Archives ▾</a></div>'
+    banner_html = f'<div class="title-banner"><span>{site_title}</span></div>'
+    if banner_img:
+        banner_html += f'<div class="photo-banner"><img src="{banner_img}" alt="{artist}"></div>'
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -267,7 +276,6 @@ def head(title, site, posts=None, base=""):
 <body>
 <header class="site-head"><div class="wrap">
   <a class="brand" href="index.html">{brand}</a>
-  <div class="site-title">{site_title}</div>
   <nav class="nav">
     <a href="index.html">Accueil</a>
     <a href="galerie.html">Galerie</a>
@@ -278,6 +286,7 @@ def head(title, site, posts=None, base=""):
     <a href="contact.html">Contact</a>
   </nav>
 </div></header>
+{banner_html}
 """
 
 def foot():
@@ -305,6 +314,9 @@ def build():
     for p in posts:
         for u in re.findall(r'src="(assets/img/[^"]+)"', p["body"]):
             needed.add(u.replace("assets/img/", ""))
+    # also include the hero/photo banner image from site.json
+    if site.get("hero_image", "").startswith("assets/img/"):
+        needed.add(site["hero_image"].replace("assets/img/", ""))
     os.makedirs(os.path.join(PUBLIC, "assets", "img"), exist_ok=True)
     copied = 0
     for base in needed:
