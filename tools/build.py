@@ -63,6 +63,9 @@ def load_posts():
             body = re.sub(r' class="ob-section[^"]*"', "", body, flags=re.S|re.I)
             # 7) drop empty paragraphs
             body = re.sub(r'<p>\s*</p>', "", body, flags=re.S)
+            # 8) strip inline color styles (overblog used black/blue/red that are invisible on dark theme)
+            body = re.sub(r'\sstyle="[^"]*color:[^";]*;?', "", body, flags=re.I)
+            body = re.sub(r'\sstyle="color:[^"]*"', "", body, flags=re.I)
             date = fm.get("date", "").strip()
             if not date:
                 # try to infer from any YYYY-MM occurrence in filename/title

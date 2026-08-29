@@ -48,11 +48,11 @@ date:
     class="ob-section ob-section-html "
       >
 
-<p style="text-align: center;"><span style="font-family:comic sans ms,cursive;"><span style="color:#FF0000;">Page 1 - Vous y verrez&nbsp;100 toiles... </span></span></p>
+<p style="text-align: center;"><span style="font-family:comic sans ms,cursive;"><span">Page 1 - Vous y verrez&nbsp;100 toiles... </span></span></p>
 
-<p style="text-align: center;"><span style="font-family:comic sans ms,cursive;"><span style="color:#B22222;">Elles sont toutes en stock.</span></span></p>
+<p style="text-align: center;"><span style="font-family:comic sans ms,cursive;"><span">Elles sont toutes en stock.</span></span></p>
 
-<p style="text-align: center;"><span style="font-family:comic sans ms,cursive;"><span style="color:#FF0000;">à suivre page 2...</span></span></p>
+<p style="text-align: center;"><span style="font-family:comic sans ms,cursive;"><span">à suivre page 2...</span></span></p>
 
 
 

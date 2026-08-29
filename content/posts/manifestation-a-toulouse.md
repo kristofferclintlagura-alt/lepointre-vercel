@@ -49,9 +49,9 @@ date: 2026-04
     class="ob-section ob-section-html "
       >
 
-<p style="box-sizing: border-box; max-width: 100%; color: rgb(120, 120, 120); font-family: Raleway, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 200; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Le Pointre &eacute;tait pr&eacute;sent ce samedi 28 mars&nbsp;&agrave; Toulouse pour manifester contre la loi Yadan.</p>
+<p">Le Pointre &eacute;tait pr&eacute;sent ce samedi 28 mars&nbsp;&agrave; Toulouse pour manifester contre la loi Yadan.</p>
 
-<p style="box-sizing: border-box; max-width: 100%; color: rgb(120, 120, 120); font-family: Raleway, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 200; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">&quot;Stop au g&eacute;nocide en Palestine, France complice d&#39;Isra&euml;l&quot;</p>
+<p">&quot;Stop au g&eacute;nocide en Palestine, France complice d&#39;Isra&euml;l&quot;</p>
     </div>
 
 

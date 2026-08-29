@@ -55,13 +55,13 @@ date: 2021-01
 
 <p>Si vous voulez en savoir plus,&nbsp;consultez&nbsp;l&#39;article de l&#39;ind&eacute;pendant avec le lien&nbsp;:&nbsp;</p>
 
-<p><span style="font-size:medium"><span style="font-family:Calibri"><span style="color:#000000"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="font-size:13.5pt"><span style="color:black"><a href="https://www.lindependant.fr/2020/11/28/manifestation-a-perpignan-loi-apres-loi-on-rogne-sur-les-libertes-individuelles-9226357.php" style="color:#954f72; text-decoration:underline">https://www.lindependant.fr/2020/11/28/manifestation-a-perpignan-loi-apres-loi-on-rogne-sur-les-libertes-individuelles-9226357.php</a></span></span></span></span></span></span></span></span></span></p>
+<p><span style="font-size:medium"><span style="font-family:Calibri"><span"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="font-size:13.5pt"><span"><a href="https://www.lindependant.fr/2020/11/28/manifestation-a-perpignan-loi-apres-loi-on-rogne-sur-les-libertes-individuelles-9226357.php" text-decoration:underline">https://www.lindependant.fr/2020/11/28/manifestation-a-perpignan-loi-apres-loi-on-rogne-sur-les-libertes-individuelles-9226357.php</a></span></span></span></span></span></span></span></span></span></p>
 
 <p>&nbsp;</p>
 
 <p>Retrouvez la vid&eacute;o de la manifestation en cliquant sur ce lien :&nbsp;</p>
 
-<p style="text-align:start"><span style="font-size:medium"><span style="font-family:Calibri"><span style="color:#000000"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="font-size:13.5pt"><span style="color:black"><a href="https://www.youtube.com/watch?v=OzWSGmwhmxw&amp;t=9s" style="color:#954f72; text-decoration:underline">https://www.youtube.com/watch?v=OzWSGmwhmxw&amp;t=9s</a></span></span></span></span></span></span></span></span></span></p>
+<p style="text-align:start"><span style="font-size:medium"><span style="font-family:Calibri"><span"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="font-size:13.5pt"><span"><a href="https://www.youtube.com/watch?v=OzWSGmwhmxw&amp;t=9s" text-decoration:underline">https://www.youtube.com/watch?v=OzWSGmwhmxw&amp;t=9s</a></span></span></span></span></span></span></span></span></span></p>
 
 <p>&nbsp;</p>
     </div>

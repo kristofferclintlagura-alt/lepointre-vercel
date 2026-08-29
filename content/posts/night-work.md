@@ -44,11 +44,11 @@ date:
     class="ob-section ob-section-html "
       >
 
-<p style="text-align: center;"><span style="font-family:Arial,Helvetica,sans-serif;"><span style="color:#008000;"><span style="font-size: 20px;">De 1985 &agrave; 1991, Le Pointre a r&eacute;alis&eacute; plus de 300 toiles de grand format qu&#39;il a placard&eacute;es sur les murs de New York. Aujourd&#39;hui, ces oeuvres n&#39;existent plus qu&#39;au travers des images contenues dans ces pages.</span></span></span></p>
+<p style="text-align: center;"><span style="font-family:Arial,Helvetica,sans-serif;"><span"><span style="font-size: 20px;">De 1985 &agrave; 1991, Le Pointre a r&eacute;alis&eacute; plus de 300 toiles de grand format qu&#39;il a placard&eacute;es sur les murs de New York. Aujourd&#39;hui, ces oeuvres n&#39;existent plus qu&#39;au travers des images contenues dans ces pages.</span></span></span></p>
 
 <p style="text-align: center;">&nbsp;</p>
 
-<p id="yui_3_5_0_1_1434545790696_72337" style="text-align: center;"><span style="font-family:Arial,Helvetica,sans-serif;"><span id="yui_3_5_0_1_1434545790696_72507" style="color:#FF0000;"><span id="yui_3_5_0_1_1434545790696_72506" style="font-size: 20px;"><span id="yui_3_5_0_1_1434545790696_72505">From 1985 to 1991 Le Pointre painted more than 300 paintings of large size which he hanged up on Manhattan walls. Today those works stay alive only through these pictures.</span></span></span></span></p>
+<p id="yui_3_5_0_1_1434545790696_72337" style="text-align: center;"><span style="font-family:Arial,Helvetica,sans-serif;"><span id="yui_3_5_0_1_1434545790696_72507""><span id="yui_3_5_0_1_1434545790696_72506" style="font-size: 20px;"><span id="yui_3_5_0_1_1434545790696_72505">From 1985 to 1991 Le Pointre painted more than 300 paintings of large size which he hanged up on Manhattan walls. Today those works stay alive only through these pictures.</span></span></span></span></p>
     </div>
 
 
