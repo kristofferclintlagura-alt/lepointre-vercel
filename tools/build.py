@@ -439,10 +439,32 @@ def build():
         open(os.path.join(PUBLIC, "posts", p["slug"] + ".html"), "w", encoding="utf-8").write(html)
 
     # ---- simple pages ----
+    def md_to_html(md):
+        """Convert lightweight markdown (paragraphs, **bold**, [text](url),
+        # headings) to HTML. Raw HTML tags (<a>, <small>) pass through untouched."""
+        md = md.replace('\r\n', '\n').strip()
+        out = []
+        for block in re.split(r'\n\s*\n', md):
+            b = block.strip()
+            if not b:
+                continue
+            m = re.match(r'^(#{1,4})\s+(.*)$', b)
+            if m:
+                lvl = min(len(m.group(1)) + 1, 4)  # page already has h1 -> # becomes h2
+                out.append(f'<h{lvl}>{_inline(m.group(2))}</h{lvl}>')
+                continue
+            out.append(f'<p>{_inline(b)}</p>')
+        return '\n'.join(out)
+
+    def _inline(s):
+        s = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', s)
+        s = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', s)
+        return s
+
     for name in ("about", "contact", "shop"):
         if name in pages:
             html = (head(pages[name]["title"], site, posts) +
-                    f'<div class="page"><h1>{pages[name]["title"]}</h1>{pages[name]["body"]}</div>' + foot())
+                    f'<div class="page"><h1>{pages[name]["title"]}</h1>{md_to_html(pages[name]["body"])}</div>' + foot())
             open(os.path.join(PUBLIC, name + ".html"), "w", encoding="utf-8").write(html)
 
     # ---- PAGES listing (every post) ----
