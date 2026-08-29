@@ -204,6 +204,15 @@ img{max-width:100%;display:block}
 .page h1{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(34px,6vw,64px);
   letter-spacing:.02em;margin:0 0 20px}
 .page h1 b{color:var(--accent)}
+.page p{font-size:17px;line-height:1.6}
+.page ul{font-size:17px;line-height:1.7;padding-left:20px}
+.page li{margin:6px 0}
+.page a{color:var(--accent)}
+/* WhatsApp / call-to-action button */
+.wa-btn{display:inline-block;margin:14px 0;background:var(--accent);color:#fff !important;
+  padding:12px 18px;border-radius:5px;font-family:var(--font-display);text-transform:uppercase;
+  letter-spacing:.08em;font-size:15px;font-weight:700;text-decoration:none}
+.wa-btn:hover{opacity:.9}
 /* listing pages (Pages / Archives) */
 .year-group{margin:0 0 26px}
 .year-group h2{font-family:var(--font-display);color:var(--accent);font-size:20px;letter-spacing:.08em;
