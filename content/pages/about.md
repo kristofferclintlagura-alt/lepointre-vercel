@@ -1,7 +1,7 @@
 ---
 title: À propos
 ---
-# Le Pointre
+Le Pointre
 
 2015-03
 
