@@ -101,8 +101,8 @@ img{max-width:100%;display:block}
 .title-banner span{font-family:var(--font-display);font-weight:700;text-transform:uppercase;
   letter-spacing:.04em;font-size:clamp(22px,4.4vw,46px);line-height:1.05;color:var(--fg)}
 /* photo banner */
-.photo-banner{width:100%;height:clamp(320px,42vh,620px);overflow:hidden;background:#000;border-bottom:2px solid var(--line)}
-.photo-banner img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.04)}
+.photo-banner{width:100%;padding:14px 16px 4px;display:flex;justify-content:center;background:var(--bg);border-bottom:2px solid var(--line)}
+.photo-banner img{width:auto;max-width:min(860px,92%);height:auto;max-height:340px;object-fit:contain;filter:grayscale(.12) contrast(1.03);border:1px solid var(--line)}
 /* dropdown nav */
 .nav-dd{position:relative;display:inline-block}
 .nav-dd .dd-trigger{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.12em;
@@ -340,11 +340,7 @@ def build():
         featured += extra[:8 - len(featured)]
 
     # ---- index ----
-    hero = ""
-    if site.get("hero_image"):
-        hero = f'<section class="hero"><img class="hero-img" src="{site["hero_image"]}" alt=""><div class="hero-veil"></div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
-    else:
-        hero = f'<section class="hero" style="background:var(--bg2)"><div class="hero-veil"></div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
+    hero = f'<section class="hero" style="background:var(--bg2)"><div class="hero-veil"></div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
     tiles = []
     rots = ["-1.2deg","1deg","-0.6deg","0.8deg","-1deg","1.3deg","-0.9deg","0.7deg"]
     for i, p in enumerate(featured):
