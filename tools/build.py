@@ -342,9 +342,9 @@ def build():
     # ---- index ----
     hero = ""
     if site.get("hero_image"):
-        hero = f'<section class="hero"><img class="hero-img" src="{site["hero_image"]}" alt=""><div class="hero-veil"></div><div class="hero-note">Atelier</div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
+        hero = f'<section class="hero"><img class="hero-img" src="{site["hero_image"]}" alt=""><div class="hero-veil"></div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
     else:
-        hero = f'<section class="hero" style="background:var(--bg2)"><div class="hero-veil"></div><div class="hero-note">Atelier</div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
+        hero = f'<section class="hero" style="background:var(--bg2)"><div class="hero-veil"></div><div class="hero-txt"><h1>{site["artist"].split()[0]}<b>·</b>{site["artist"].split()[-1] if len(site["artist"].split())>1 else ""}</h1><p>{site.get("tagline","")}</p></div></section>'
     tiles = []
     rots = ["-1.2deg","1deg","-0.6deg","0.8deg","-1deg","1.3deg","-0.9deg","0.7deg"]
     for i, p in enumerate(featured):
