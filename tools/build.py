@@ -366,6 +366,8 @@ def build():
     for base in needed:
         srcf = os.path.join(ASSETS, "img", base)
         if os.path.exists(srcf):
+            dstdir = os.path.dirname(os.path.join(PUBLIC, "assets", "img", base))
+            os.makedirs(dstdir, exist_ok=True)
             shutil.copy(srcf, os.path.join(PUBLIC, "assets", "img", base))
             copied += 1
     # copy admin (Decap CMS) into public/admin/
