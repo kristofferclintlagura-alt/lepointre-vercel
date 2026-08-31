@@ -358,6 +358,9 @@ def build():
     for p in posts:
         for u in re.findall(r'src="(assets/img/[^"]+)"', p["body"]):
             needed.add(u.replace("assets/img/", ""))
+        # also copy video <source> + <video poster> assets
+        for u in re.findall(r'(?:src|poster)="(assets/img/[^"]+)"', p["body"]):
+            needed.add(u.replace("assets/img/", ""))
     # also include the hero/photo banner image from site.json
     if site.get("hero_image", "").startswith("assets/img/"):
         needed.add(site["hero_image"].replace("assets/img/", ""))
