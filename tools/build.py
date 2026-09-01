@@ -339,7 +339,13 @@ def foot():
 <script src="assets/js/site.js"></script></body></html>"""
 
 def post_cover(post):
-    m = re.search(r'src="([^"]+)"', post["body"])
+    # prefer an image src; skip video/audio sources so the homepage tile isn't a .mp4
+    for m in re.finditer(r'src="([^"]+)"', post["body"]):
+        u = m.group(1)
+        if not u.lower().endswith((".mp4", ".webm", ".ogg", ".mp3", ".wav")):
+            return u
+    # fallback: use the <video poster="..."> if present
+    m = re.search(r'poster="([^"]+)"', post["body"])
     return m.group(1) if m else ""
 
 def build():
