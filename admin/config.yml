@@ -6,7 +6,7 @@ backend:
   # OAuth Apps → New OAuth App. Homepage + Authorization callback URL BOTH =
   # https://lepointre-vercel.vercel.app/admin/  (use your real URL / custom domain)
   # Then paste the Client ID here:
-  client_id: <YOUR_GITHUB_OAUTH_CLIENT_ID>
+  client_id: Ov23li0JGrhXeyNWOw0a
   base_url: https://lepointre-vercel.vercel.app
 media_folder: "assets/img"
 public_folder: "assets/img"
