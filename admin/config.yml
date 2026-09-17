@@ -2,14 +2,15 @@ backend:
   name: github
   repo: kristofferclintlagura-alt/lepointre-vercel
   branch: main
-  # Create a GitHub OAuth App (free): GitHub → Settings → Developer settings →
-  # OAuth Apps → New OAuth App. Homepage + Authorization callback URL BOTH =
-  # https://lepointre-vercel.vercel.app/admin/  (use your real URL / custom domain)
-  # Then paste the Client ID here:
   client_id: Ov23li0JGrhXeyNWOw0a
+  # base_url = live site root (for GitHub API + OAuth)
+  # auth_endpoint routes Decap CMS popup → our Vercel Serverless Function
   base_url: https://lepointre-vercel.vercel.app
+  auth_endpoint: /api/auth
+  open_authorize: true
 media_folder: "assets/img"
 public_folder: "assets/img"
+
 # Direct publish (simplest for a non-technical client). Change to
 # editorial_workflow if you want a review/approve step before changes go live.
 

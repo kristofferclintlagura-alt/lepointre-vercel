@@ -1,5 +1,25 @@
 {
-  "buildCommand": "python tools/build.py",
-  "outputDirectory": "public",
-  "github": { "silent": true }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "tools/build.py",
+      "use": "@vercel/python",
+      "config": { "includeFiles": ["content/**", "assets/**", "tools/**"] }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "outputDirectory": "public"
 }
