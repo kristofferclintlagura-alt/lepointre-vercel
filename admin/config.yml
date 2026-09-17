@@ -46,8 +46,11 @@ collections:
           - { name: body, label: "Contenu", widget: "markdown" }
   - name: "site"
     label: "Paramètres du site"
-    file: "content/site.json"
-    fields:
+    files:
+      - name: site
+        label: "Paramètres du site"
+        file: "content/site.json"
+        fields:
       - { name: artist, label: "Nom de l'artiste" }
       - { name: tagline, label: "Slogan" }
       - { name: hero_image, label: "Photo d'en-tête (chemin)", required: false, hint: "ex: assets/img/hero.jpg" }
