@@ -23,6 +23,7 @@ collections:
       - { name: title, label: "Titre" }
       - { name: date, label: "Date (AAAA-MM)", required: false }
       - { name: body, label: "Contenu", widget: "markdown", hint: "Collez le texte et les images. Les images déjà téléchargées restent." }
+
   - name: "pages"
     label: "Pages"
     files:
@@ -44,6 +45,7 @@ collections:
         fields:
           - { name: title, label: "Titre" }
           - { name: body, label: "Contenu", widget: "markdown" }
+
   - name: "site"
     label: "Paramètres du site"
     files:
@@ -51,12 +53,12 @@ collections:
         label: "Paramètres du site"
         file: "content/site.json"
         fields:
-      - { name: artist, label: "Nom de l'artiste" }
-      - { name: tagline, label: "Slogan" }
-      - { name: hero_image, label: "Photo d'en-tête (chemin)", required: false, hint: "ex: assets/img/hero.jpg" }
-      - { name: accent, label: "Couleur d'accent (hex)", required: false }
-      - name: featured
-        label: "8 articles en page d'accueil"
-        widget: "list"
-        required: false
-        field: { name: slug, label: "Slug de l'article" }
+          - { name: artist, label: "Nom de l'artiste" }
+          - { name: tagline, label: "Slogan" }
+          - { name: hero_image, label: "Photo d'en-tête (chemin)", required: false, hint: "ex: assets/img/hero.jpg" }
+          - { name: accent, label: "Couleur d'accent (hex)", required: false }
+          - name: featured
+            label: "8 articles en page d'accueil"
+            widget: "list"
+            required: false
+            field: { name: slug, label: "Slug de l'article" }
