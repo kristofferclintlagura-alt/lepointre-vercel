@@ -20,8 +20,8 @@ module.exports = async (req, res) => {
     return res.writeHead(302, { Location: ghUrl }).end();
   }
 
-  // Step 2: GitHub redirects back with ?code=.... → exchange for access_token
-  if (method === 'GET' && query.code) {
+  // Step 2: GitHub redirects back to /api/auth/callback?code=.... → exchange for access_token
+  if (url.startsWith('/api/auth/callback') && method === 'GET' && query.code) {
     const params = new URLSearchParams();
     params.append('client_id', CLIENT_ID);
     params.append('client_secret', CLIENT_SECRET);
