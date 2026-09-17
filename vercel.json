@@ -7,7 +7,10 @@
     },
     {
       "src": "package.json",
-      "use": "@vercel/static"
+      "use": "@vercel/static",
+      "config": {
+        "outputDirectory": "public"
+      }
     }
   ],
   "routes": [
@@ -16,14 +19,8 @@
       "dest": "/api/auth.js"
     },
     {
-      "src": "/admin(/.*)?",
-      "status": 200,
-      "headers": { "Content-Type": "text/html" },
-      "dest": "/public/admin/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/$1"
     }
   ]
 }
