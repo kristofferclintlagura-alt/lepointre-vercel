@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {},
+  "scripts": {
+    "build": "python tools/build.py"
+  },
   "outputDirectory": "public"
 }
