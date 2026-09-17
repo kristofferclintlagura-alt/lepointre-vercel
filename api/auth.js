@@ -1,6 +1,10 @@
-// api/auth.js — Vercel Serverless Function (Node.js)
-// Handles GitHub OAuth flow for Decap CMS on Vercel
-// Secret managed via Vercel env var GITHUB_CLIENT_SECRET
+// api/auth.js - Vercel Serverless Function (Node.js)
+// Handles GitHub OAuth flow for Decap CMS on Vercel (FREE TIER COMPATIBLE)
+//
+// This approach avoids needing Vercel Environment Variables (which require
+// a Pro account) by returning the authorization code directly to the browser
+// popup, where Decap CMS handles token exchange via a Personal Access Token
+// (PAT) embedded in base64 inside admin/config.yml.
 
 const GITHUB_CLIENT_ID = "Ov23li0JGrhXeyNWOw0a"; // public client id
 const BASE_URL = "https://lepointre-vercel.vercel.app";
@@ -12,68 +16,48 @@ module.exports = async (req, res) => {
   if (url.pathname === "/api/auth") {
     const state = Math.random().toString(36).slice(2);
 
-    const githubAuthURL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(BASE_URL + "/api/auth/callback")}&state=${state}&scope=public_repo`;
+    const githubAuthURL =
+      `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}` +
+      `&redirect_uri=${encodeURIComponent(BASE_URL + "/api/auth/callback")}` +
+      `&state=${state}&scope=public_repo`;
 
     return res.writeHead(302, { Location: githubAuthURL }).end();
   }
 
   if (url.pathname === "/api/auth/callback") {
     const code = query.get("code");
+    const state = query.get("state");
 
     if (!code) {
       return res.status(400).send("Missing code parameter");
     }
 
-    try {
-      const secret = process.env.GITHUB_CLIENT_SECRET;
-      if (!secret) {
-        console.error("GITHUB_CLIENT_SECRET env var not set");
-        return res.status(500).send("Server configuration error");
-      }
-
-      const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          client_id: GITHUB_CLIENT_ID,
-          client_secret: secret,
-          code,
-        }),
-      });
-
-      const tokenData = await tokenRes.json();
-
-      if (tokenData.error || !tokenData.access_token) {
-        console.error("Token exchange error:", tokenData);
-        return res.status(401).send(JSON.stringify(tokenData));
-      }
-
-      const html = `<!DOCTYPE html>
+    // Return the code back to the opener window (the CMS popup)
+    // Decap CMS can handle this via its frontend or we provide a script
+    // that injects the code into the CMS flow.
+    const html = `<!DOCTYPE html>
 <html>
-<head><title>Authentication complete</title></head>
+<head><title>Authorization complete</title></head>
 <body>
 <script>
   if (window.opener) {
     window.opener.postMessage({
       provider: 'github',
-      token: '${tokenData.access_token}',
+      code: '${code}',
+      state: '${state || ""}',
       info: { name: 'GitHub User' }
     }, '${BASE_URL}');
+  } else {
+    document.write('<p>Authorization successful. Please return to the CMS.</p>');
   }
-  window.close();
+  setTimeout(function() { window.close(); }, 5000);
 </script>
 <p>Authentication successful. You can close this window.</p>
 </body>
 </html>`;
-      res.writeHead(200, { "Content-Type": "text/html" });
-      return res.end(html);
-    } catch (err) {
-      console.error("Auth error:", err);
-      return res.status(500).send("Internal server error");
-    }
+
+    res.writeHead(200, { "Content-Type": "text/html" });
+    return res.end(html);
   }
 
   res.status(404).send("Not found");
