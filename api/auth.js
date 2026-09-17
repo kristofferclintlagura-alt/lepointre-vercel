@@ -1,88 +1,80 @@
-// api/auth.js — Vercel Serverless Function: GitHub OAuth handshake for Decap CMS
-// Route: https://lepointre-vercel.vercel.app/api/auth  (also /api/auth/callback via query)
-// Environment: set GITHUB_CLIENT_ID + GITHUB_CLIENT_SECRET in Vercel → Project Settings → Env Vars → "Production"
+// api/auth.js — Vercel Serverless Function (Node.js)
+// Handles GitHub OAuth flow for Decap CMS on Vercel
+// Secret managed via Vercel env var GITHUB_CLIENT_SECRET
 
-const CLIENT_ID = process.env.GITHUB_CLIENT_ID || 'Ov23li0JGrhXeyNWOw0a';
-const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || '';
-const BASE_URL = process.env.BASE_URL || 'https://lepointre-vercel.vercel.app';
+const GITHUB_CLIENT_ID = "Ov23li0JGrhXeyNWOw0a"; // public client id
+const BASE_URL = "https://lepointre-vercel.vercel.app";
 
 module.exports = async (req, res) => {
-  const { url, method, query, headers } = req;
+  const url = new URL(req.url, `https://${req.headers.host}`);
+  const query = url.searchParams;
 
-  // Step 1: redirect user to GitHub for authorization
-  if (url.startsWith('/api/auth') && method === 'GET' && !query.code) {
-    const ghUrl =
-      'https://github.com/login/oauth/authorize' +
-      '?client_id=' + CLIENT_ID +
-      '&redirect_uri=' + encodeURIComponent(BASE_URL + '/api/auth/callback') +
-      '&scope=public_repo' +
-      '&state=' + encodeURIComponent(query.state || '');
-    return res.writeHead(302, { Location: ghUrl }).end();
+  if (url.pathname === "/api/auth") {
+    const state = Math.random().toString(36).slice(2);
+
+    const githubAuthURL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(BASE_URL + "/api/auth/callback")}&state=${state}&scope=public_repo`;
+
+    return res.writeHead(302, { Location: githubAuthURL }).end();
   }
 
-  // Step 2: GitHub redirects back to /api/auth/callback?code=.... → exchange for access_token
-  if (url.startsWith('/api/auth/callback') && method === 'GET' && query.code) {
-    const params = new URLSearchParams();
-    params.append('client_id', CLIENT_ID);
-    params.append('client_secret', CLIENT_SECRET);
-    params.append('code', query.code);
-    params.append('redirect_uri', BASE_URL + '/api/auth/callback');
+  if (url.pathname === "/api/auth/callback") {
+    const code = query.get("code");
 
-    const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'decap-cms-oauth',
-      },
-      body: params.toString(),
-    });
-    const tokenJson = await tokenRes.json();
-
-    if (tokenJson.error) {
-      return res.statusCode === 500
-        ? res.writeHead(500).end(tokenJson.error_description || tokenJson.error)
-        : res.writeHead(500).end(JSON.stringify(tokenJson));
+    if (!code) {
+      return res.status(400).send("Missing code parameter");
     }
 
-    const accessToken = tokenJson.access_token;
+    try {
+      const secret = process.env.GITHUB_CLIENT_SECRET;
+      if (!secret) {
+        console.error("GITHUB_CLIENT_SECRET env var not set");
+        return res.status(500).send("Server configuration error");
+      }
 
-    // Step 3: call GitHub /user to get the user's GitHub username
-    const userRes = await fetch('https://api.github.com/user', {
-      headers: { Authorization: 'Bearer ' + accessToken, Accept: 'application/vnd.github+json' },
-    });
-    const userJson = await userRes.json();
-    const username = userJson.login;
+      const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: GITHUB_CLIENT_ID,
+          client_secret: secret,
+          code,
+        }),
+      });
 
-    // Step 4: build the Decap CMS popup response (JWT returned via postMessage)
-    const popupHtml = '<!DOCTYPE html><html><head><title>Auth Complete</title></head><body>'
-      + '<script>'
-      + '  function receiveMessage(event) {'
-      + '    if (event.data && event.data.type === "cms:authentication") {'
-      + '      event.source.postMessage({'
-      + '        type: "cms:token",'
-      + '        token: "' + accessToken + '",'
-      + '        provider: "github",'
-      + '        user: "' + username + '"'
-      + '      }, event.origin);'
-      + '    }'
-      + '  }'
-      + '  window.addEventListener("message", receiveMessage);'
-      + '  window.opener.postMessage({type: "cms:authentication"}, window.location.origin);'
-      + '</script>'
-      + '<p>Authentication complete. You can close this window.</p>'
-      + '</body></html>';
+      const tokenData = await tokenRes.json();
 
-    res.setHeader('Content-Type', 'text/html');
-    return res.writeHead(200).end(popupHtml);
+      if (tokenData.error || !tokenData.access_token) {
+        console.error("Token exchange error:", tokenData);
+        return res.status(401).send(JSON.stringify(tokenData));
+      }
+
+      const html = `<!DOCTYPE html>
+<html>
+<head><title>Authentication complete</title></head>
+<body>
+<script>
+  if (window.opener) {
+    window.opener.postMessage({
+      provider: 'github',
+      token: '${tokenData.access_token}',
+      info: { name: 'GitHub User' }
+    }, '${BASE_URL}');
+  }
+  window.close();
+</script>
+<p>Authentication successful. You can close this window.</p>
+</body>
+</html>`;
+      res.writeHead(200, { "Content-Type": "text/html" });
+      return res.end(html);
+    } catch (err) {
+      console.error("Auth error:", err);
+      return res.status(500).send("Internal server error");
+    }
   }
 
-  // fallback
-  res.statusCode = 404;
-  res.end('Not found');
-};
-
-// Required so Vercel treats this as a serverless function (API route)
-export const config = {
-  api: { bodyParser: false },
+  res.status(404).send("Not found");
 };

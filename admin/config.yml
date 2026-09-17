@@ -3,16 +3,11 @@ backend:
   repo: kristofferclintlagura-alt/lepointre-vercel
   branch: main
   client_id: Ov23li0JGrhXeyNWOw0a
-  # base_url = live site root (for GitHub API + OAuth)
-  # auth_endpoint routes Decap CMS popup → our Vercel Serverless Function
-  base_url: https://lepointre-vercel.vercel.app
-  auth_endpoint: /api/auth
+  base_url: https://lepointre-vercel.vercel.app/auth
   open_authorize: true
+
 media_folder: "assets/img"
 public_folder: "assets/img"
-
-# Direct publish (simplest for a non-technical client). Change to
-# editorial_workflow if you want a review/approve step before changes go live.
 
 collections:
   - name: "posts"
