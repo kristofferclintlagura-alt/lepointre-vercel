@@ -2,15 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/auth.js",
-      "use": "@vercel/node"
+      "src": "package.json",
+      "use": "@vercel/static",
+      "config": {
+        "outputDirectory": "public"
+      }
     }
   ],
   "routes": [
-    {
-      "src": "/api/auth(/.*)?",
-      "dest": "/api/auth.js"
-    },
     {
       "src": "/(.*)",
       "dest": "/$1"
