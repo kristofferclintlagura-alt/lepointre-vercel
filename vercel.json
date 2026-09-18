@@ -4,6 +4,13 @@
     {
       "src": "api/auth.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static",
+      "config": {
+        "outputDirectory": "public"
+      }
     }
   ],
   "routes": [
