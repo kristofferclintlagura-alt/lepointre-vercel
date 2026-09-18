@@ -380,6 +380,13 @@ def build():
             shutil.copy(srcf, os.path.join(PUBLIC, "assets", "img", base))
             copied += 1
 
+    # copy admin (Decap CMS) into public/admin/
+    import shutil as _sh
+    adm_src = os.path.join(ROOT, "admin")
+    if os.path.isdir(adm_src):
+        _sh.copytree(adm_src, os.path.join(PUBLIC, "admin"), dirs_exist_ok=True)
+        print("copied admin/ -> public/admin/")
+
 
     featured = [p for p in posts if p["slug"] in site.get("featured", [])][:8]
     # posts excluded from the homepage tiles (their content lives elsewhere, e.g. About)
