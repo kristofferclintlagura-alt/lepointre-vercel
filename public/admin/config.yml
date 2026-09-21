@@ -3,7 +3,7 @@ backend:
   repo: kristofferclintlagura-alt/lepointre-vercel
   branch: main
   client_id: Ov23li0JGrhXeyNWOw0a
-  base_url: https://lepointre-vercel.vercel.app
+  base_url: https://github.com
 media_folder: "assets/img"
 public_folder: "assets/img"
 
