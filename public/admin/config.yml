@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: kristofferclintlagura-alt/lepointre-vercel
+  name: git-gateway
   branch: main
-  client_id: Ov23li0JGrhXeyNWOw0a
-  base_url: https://github.com
 media_folder: "assets/img"
 public_folder: "assets/img"
 
