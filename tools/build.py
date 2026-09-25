@@ -334,7 +334,7 @@ def head(title, site, posts=None, base=""):
 """
 
 def foot():
-    return """<footer class="site-foot">© 2026 Le Pointre — Painter. Exhibitions by Michel Cailleau. | Designed &amp; Developed by KCLP.</footer>
+    return """<footer class="site-foot">© 2026 Le Pointre — Painter. Exhibitions by Michel Cailleau. | Designed &amp; Developed by KCPL.</footer>
 <div id="lb"><button class="x" onclick="closeLB()">×</button><button class="p" onclick="navLB(-1)">‹</button><img id="lbi" src=""><button class="n" onclick="navLB(1)">›</button></div>
 <script src="assets/js/site.js"></script></body></html>"""
 
